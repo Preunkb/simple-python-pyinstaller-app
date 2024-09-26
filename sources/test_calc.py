@@ -1,6 +1,7 @@
 import unittest
 import calc
 
+
 class TestCalc(unittest.TestCase):
     """
     Test the add function from the calc library
@@ -43,6 +44,7 @@ class TestCalc(unittest.TestCase):
         """
         result = calc.add2('abc', '5.5')
         self.assertEqual(result, 'abc5.5')
+
 
 if __name__ == '__main__':
     unittest.main()
