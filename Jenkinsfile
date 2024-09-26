@@ -1,6 +1,9 @@
 pipeline {
     agent any
-     stages {
+    options {
+        skipStagesAfterUnstable()
+    }
+    stages {
         stage('Build') {
             steps {
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py'
@@ -14,6 +17,16 @@ pipeline {
             post {
                 always {
                     junit 'test-reports/results.xml'
+                }
+            }
+        }
+        stage('Deliver') {
+            steps {
+                sh "pyinstaller --onefile sources/add2vals.py"
+            }
+            post {
+                success {
+                    archiveArtifacts 'dist/add2vals'
                 }
             }
         }
